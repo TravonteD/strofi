@@ -20,7 +20,7 @@ task :check_installed do
 end
 
 task :check_deps do
-  deps = %w[streamlink rofi]
+  deps = %w[streamlink rofi mpv]
   deps.each do |dep|
     unless system("which #{dep}")
       puts "Missing Dependency: #{dep}. Aborting..."

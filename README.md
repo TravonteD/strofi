@@ -7,6 +7,7 @@ Streamlink + Rofi a tool to easily pick a twitch stream to view
 - rake (installed via `gem install rake`)
 - streamlink
 - rofi
+- mpv
 
 ## Installation
 Strofi will be installed into `~/.local/bin` simply run
