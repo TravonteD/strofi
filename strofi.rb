@@ -8,7 +8,7 @@ COMMAND = 'streamlink twitch.tv/%s --json'.freeze
 
 OPEN_STREAM = 'streamlink --quiet twitch.tv/%s %s --player mpv'.freeze
 
-CONFIG_FILE = "#{Dir.home}/.config/strofi/channels"
+CONFIG_FILE = "#{Dir.home}/.config/strofi/channels".freeze
 
 def get_channels
   channels = File.readlines(CONFIG_FILE)
@@ -16,19 +16,19 @@ def get_channels
 end
 
 def get_available_streams(channel)
-  output = `#{sprintf(COMMAND, channel)}`.chomp
+  output = `#{format(COMMAND, channel)}`.chomp
 
   return [] unless $CHILD_STATUS.success?
 
-  JSON.parse(output)['streams'].keys()
+  JSON.parse(output)['streams'].keys
 end
 
 def get_streams
   streams = {}
-  threads = [] 
+  threads = []
 
   get_channels.each do |channel|
-    threads << Thread.new do |t|
+    threads << Thread.new do
       streams[channel] = get_available_streams(channel)
     end
   end
@@ -53,4 +53,4 @@ exit 1 if stream_choice.empty?
 quality_choice = rofi(streams[stream_choice])
 exit 1 if quality_choice.empty?
 
-exec(sprintf(OPEN_STREAM, stream_choice, quality_choice))
+exec(format(OPEN_STREAM, stream_choice, quality_choice))
